@@ -1,10 +1,10 @@
 {
-    "name":  "letouche",
-    "version":  "1.0.0",
-    "scripts":  {
-                    "start":  "npx serve . -l tcp://0.0.0.0:${PORT:-3000} -s"
-                },
-    "dependencies":  {
-                         "serve":  "^14.2.0"
-                     }
+  "name": "letouche",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve . -l tcp://0.0.0.0:${PORT} -s"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
 }
