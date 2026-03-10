@@ -39,53 +39,21 @@ const productGroups = [
   { key: 'layers', label: 'Vestes' },
 ];
 
-const navItems = [
-  ['inspo', 'Inspo', Sparkles],
-  ['closet', 'Closet', Shirt],
-  ['create', 'Composer', Wand2],
-  ['tryon', 'Try-on', Camera],
-];
-
-/* ── Sidebar nav (desktop) ── */
-function SideNav({ view, setView }) {
-  return (
-    <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#fbf8f3] border-r border-[#eadfce] h-screen sticky top-0 py-8 px-5">
-      <div className="mb-10">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#9c8779]">Le Touché</p>
-        <p className="text-lg font-semibold text-[#2a211c] mt-0.5">Styling</p>
-      </div>
-      <nav className="flex flex-col gap-1">
-        {navItems.map(([key, label, Icon]) => (
-          <button
-            key={key}
-            onClick={() => setView(key)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-              view === key
-                ? 'bg-[#2a211c] text-white'
-                : 'text-[#5f5148] hover:bg-[#f2eadf]'
-            }`}
-          >
-            <Icon className="w-4 h-4 shrink-0" />
-            {label}
-          </button>
-        ))}
-      </nav>
-    </aside>
-  );
-}
-
-/* ── Bottom nav (mobile) ── */
 function BottomNav({ view, setView }) {
+  const items = [
+    ['inspo', 'Inspo', Sparkles],
+    ['closet', 'Closet', Shirt],
+    ['create', 'Composer', Wand2],
+    ['tryon', 'Try-on', Camera],
+  ];
   return (
-    <div className="md:hidden sticky bottom-0 border-t border-[#eadfce] bg-[#fbf8f3]/95 backdrop-blur px-3 py-2">
+    <div className="sticky bottom-0 border-t border-[#eadfce] bg-[#fbf8f3]/95 backdrop-blur px-3 py-2">
       <div className="grid grid-cols-4 gap-2">
-        {navItems.map(([key, label, Icon]) => (
+        {items.map(([key, label, Icon]) => (
           <button
             key={key}
             onClick={() => setView(key)}
-            className={`rounded-2xl px-2 py-2 text-xs flex flex-col items-center gap-1 transition ${
-              view === key ? 'bg-[#2a211c] text-white' : 'bg-[#f2eadf] text-[#5f5148]'
-            }`}
+            className={`rounded-2xl px-2 py-2 text-xs flex flex-col items-center gap-1 transition ${view === key ? 'bg-[#2a211c] text-white' : 'bg-[#f2eadf] text-[#5f5148]'}`}
           >
             <Icon className="w-4 h-4" />
             <span>{label}</span>
@@ -98,9 +66,9 @@ function BottomNav({ view, setView }) {
 
 function Header({ title, right }) {
   return (
-    <div className="flex items-center justify-between px-4 md:px-6 pt-6 pb-4">
+    <div className="flex items-center justify-between px-4 pt-5 pb-3">
       <div>
-        <p className="text-xs uppercase tracking-[0.25em] text-[#9c8779] md:hidden">Le Touché</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-[#9c8779]">Le Touché</p>
         <h1 className="text-2xl font-semibold">{title}</h1>
       </div>
       {right}
@@ -108,54 +76,38 @@ function Header({ title, right }) {
   );
 }
 
-/* ── Views ── */
 function InspoView({ setView }) {
   return (
     <>
       <Header
         title="Inspo"
-        right={
-          <Button className="rounded-full bg-[#d8c0a8] text-[#2a211c] hover:bg-[#ccb299]">
-            <Upload className="w-4 h-4 mr-2" />Upload outfit
-          </Button>
-        }
+        right={<Button className="rounded-full bg-[#d8c0a8] text-[#2a211c] hover:bg-[#ccb299]"><Upload className="w-4 h-4 mr-2" />Upload outfit</Button>}
       />
-      <div className="px-4 md:px-6 space-y-4 pb-8">
-        {/* Featured — full width on desktop */}
+      <div className="px-4 space-y-4 pb-24">
         <Card className="rounded-[28px] overflow-hidden border-[#eadfce] bg-white/70">
           <CardContent className="p-0">
-            <img
-              src={inspo[0].image}
-              alt="featured"
-              className="w-full h-64 md:h-96 object-cover"
-            />
+            <img src={inspo[0].image} alt="featured" className="w-full h-80 object-cover" />
             <div className="p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-[#9c8779]">Look signature</p>
                   <h2 className="text-lg font-semibold">{inspo[0].title}</h2>
                 </div>
-                <Button size="icon" variant="outline" className="rounded-full border-[#dccab7]">
-                  <Share2 className="w-4 h-4" />
-                </Button>
+                <Button size="icon" variant="outline" className="rounded-full border-[#dccab7]"><Share2 className="w-4 h-4" /></Button>
               </div>
             </div>
           </CardContent>
         </Card>
-
-        {/* Grid — 2 cols mobile, 3 cols desktop */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-medium">Trending ideas</h3>
-            <button onClick={() => setView('create')} className="text-sm text-[#7f6657]">
-              Make an outfit
-            </button>
+            <button onClick={() => setView('create')} className="text-sm text-[#7f6657]">Make an outfit</button>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {inspo.map((item) => (
+          <div className="grid grid-cols-2 gap-3">
+            {inspo.slice(1).map((item) => (
               <Card key={item.id} className="rounded-[24px] overflow-hidden border-[#eadfce] bg-white/70">
                 <CardContent className="p-0">
-                  <img src={item.image} alt={item.title} className="w-full h-44 md:h-52 object-cover" />
+                  <img src={item.image} alt={item.title} className="w-full h-44 object-cover" />
                   <div className="p-3">
                     <p className="font-medium text-sm">{item.title}</p>
                   </div>
@@ -172,32 +124,22 @@ function InspoView({ setView }) {
 function ClosetView({ selection, setSelection, setView }) {
   return (
     <>
-      <Header
-        title="Closet"
-        right={
-          <Button size="icon" className="rounded-full bg-[#2a211c] hover:bg-[#2a211c]">
-            <Plus className="w-4 h-4" />
-          </Button>
-        }
-      />
-      <div className="px-4 md:px-6 pb-8 space-y-6">
+      <Header title="Closet" right={<Button size="icon" className="rounded-full bg-[#2a211c] hover:bg-[#2a211c]"><Plus className="w-4 h-4" /></Button>} />
+      <div className="px-4 pb-24 space-y-5">
         {productGroups.map((group) => (
           <div key={group.key}>
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-medium">{group.label}</h3>
               <span className="text-xs text-[#8b7668]">{wardrobe[group.key].length} items</span>
             </div>
-            {/* Scrollable row on mobile, grid on desktop */}
-            <div className="flex gap-3 overflow-x-auto pb-1 md:grid md:grid-cols-4 md:overflow-visible">
+            <div className="flex gap-3 overflow-x-auto pb-1">
               {wardrobe[group.key].map((item) => {
                 const active = selection[group.key] === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => setSelection((prev) => ({ ...prev, [group.key]: item.id }))}
-                    className={`min-w-[120px] md:min-w-0 rounded-[24px] border overflow-hidden bg-white transition-all ${
-                      active ? 'border-[#2a211c] ring-2 ring-[#d8c0a8]' : 'border-[#eadfce]'
-                    }`}
+                    className={`min-w-[120px] rounded-[24px] border overflow-hidden bg-white ${active ? 'border-[#2a211c] ring-2 ring-[#d8c0a8]' : 'border-[#eadfce]'}`}
                   >
                     <img src={item.image} alt={item.name} className="w-full h-32 object-cover" />
                     <div className="p-3 text-left">
@@ -210,10 +152,7 @@ function ClosetView({ selection, setSelection, setView }) {
             </div>
           </div>
         ))}
-        <Button
-          onClick={() => setView('create')}
-          className="w-full md:w-auto md:px-8 rounded-2xl h-12 bg-[#b69172] text-white hover:bg-[#a88366]"
-        >
+        <Button onClick={() => setView('create')} className="w-full rounded-2xl h-12 bg-[#b69172] text-white hover:bg-[#a88366]">
           <Sparkles className="w-4 h-4 mr-2" /> Composer un look
         </Button>
       </div>
@@ -230,17 +169,8 @@ function CreateView({ selection, setView }) {
 
   return (
     <>
-      <Header
-        title="Compose"
-        right={
-          <div className="flex gap-2">
-            <Badge className="rounded-full bg-[#f2eadf] text-[#6f5e53]">Paris</Badge>
-            <Badge className="rounded-full bg-[#f2eadf] text-[#6f5e53]">Casual chic</Badge>
-          </div>
-        }
-      />
-      {/* Desktop: two-column layout */}
-      <div className="px-4 md:px-6 pb-8 md:grid md:grid-cols-2 md:gap-6 space-y-4 md:space-y-0">
+      <Header title="Compose" right={<div className="flex gap-2"><Badge className="rounded-full bg-[#f2eadf] text-[#6f5e53] hover:bg-[#f2eadf]">Paris</Badge><Badge className="rounded-full bg-[#f2eadf] text-[#6f5e53] hover:bg-[#f2eadf]">Casual chic</Badge></div>} />
+      <div className="px-4 pb-24 space-y-4">
         <Card className="rounded-[28px] border-[#eadfce] bg-gradient-to-b from-[#ede2d4] to-[#d7c2ae]">
           <CardContent className="p-5">
             <p className="text-xs uppercase tracking-[0.2em] text-[#7e6758]">Le Touché suggestion</p>
@@ -253,23 +183,16 @@ function CreateView({ selection, setView }) {
                   <p className="text-sm mt-2 font-medium line-clamp-1">{item.name}</p>
                 </div>
               )) : (
-                <div className="col-span-2 rounded-[22px] bg-white/60 p-6 text-center text-sm text-[#6a574b]">
-                  Select pieces in Closet to generate a first outfit.
-                </div>
+                <div className="col-span-2 rounded-[22px] bg-white/60 p-6 text-center text-sm text-[#6a574b]">Select pieces in Closet to generate a first outfit.</div>
               )}
             </div>
             <div className="flex gap-2 mt-4">
-              <Button variant="outline" className="rounded-full border-[#c6ad97] bg-transparent">
-                <Heart className="w-4 h-4 mr-2" />Save
-              </Button>
-              <Button onClick={() => setView('tryon')} className="rounded-full bg-[#2a211c] hover:bg-[#2a211c]">
-                <Camera className="w-4 h-4 mr-2" />Try on
-              </Button>
+              <Button variant="outline" className="rounded-full border-[#c6ad97] bg-transparent"><Heart className="w-4 h-4 mr-2" />Save</Button>
+              <Button onClick={() => setView('tryon')} className="rounded-full bg-[#2a211c] hover:bg-[#2a211c]"><Camera className="w-4 h-4 mr-2" />Try on</Button>
             </div>
           </CardContent>
         </Card>
-
-        <Card className="rounded-[24px] border-[#eadfce] bg-white/70 self-start">
+        <Card className="rounded-[24px] border-[#eadfce] bg-white/70">
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-3">
               <Search className="w-4 h-4 text-[#8b7668]" />
@@ -277,9 +200,7 @@ function CreateView({ selection, setView }) {
             </div>
             <div className="flex flex-wrap gap-2">
               {['Dinner', 'School event', 'Streetwear', 'Elegant', 'Warm weather'].map((tag) => (
-                <Badge key={tag} className="rounded-full bg-[#f2eadf] text-[#6f5e53] cursor-pointer hover:bg-[#e8ddd4]">
-                  {tag}
-                </Badge>
+                <Badge key={tag} className="rounded-full bg-[#f2eadf] text-[#6f5e53] hover:bg-[#f2eadf]">{tag}</Badge>
               ))}
             </div>
           </CardContent>
@@ -293,65 +214,32 @@ function TryOnView({ selection }) {
   const hero = wardrobe.layers.find((x) => x.id === selection.layers) || wardrobe.layers[0];
   return (
     <>
-      <Header
-        title="Try-on"
-        right={
-          <Button className="rounded-full bg-[#d8c0a8] text-[#2a211c] hover:bg-[#ccb299]">
-            Upload selfie
-          </Button>
-        }
-      />
-      {/* Desktop: image left, info right */}
-      <div className="px-4 md:px-6 pb-8 space-y-4 md:grid md:grid-cols-2 md:gap-6 md:space-y-0 md:items-start">
+      <Header title="Try-on" right={<Button className="rounded-full bg-[#d8c0a8] text-[#2a211c] hover:bg-[#ccb299]">Upload selfie</Button>} />
+      <div className="px-4 pb-24 space-y-4">
         <Card className="rounded-[28px] border-[#eadfce] overflow-hidden bg-white">
           <CardContent className="p-0">
             <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=900&auto=format&fit=crop"
-                alt="avatar"
-                className="w-full h-[400px] md:h-[520px] object-cover"
-              />
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=900&auto=format&fit=crop" alt="avatar" className="w-full h-[480px] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 rounded-[22px] bg-white/85 backdrop-blur p-3 flex items-center gap-3">
                 <img src={hero.image} alt={hero.name} className="w-16 h-16 rounded-2xl object-cover" />
                 <div className="flex-1">
                   <p className="font-medium">{hero.name}</p>
-                  <p className="text-xs text-[#7b685d]">Virtual try-on placeholder</p>
+                  <p className="text-xs text-[#7b685d]">Virtual try-on placeholder for the private prototype</p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
-
-        <div className="space-y-3">
-          <Card className="rounded-[24px] border-[#eadfce] bg-white/70">
-            <CardContent className="p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#9c8779] mb-2">Selected layer</p>
-              <div className="flex gap-3 overflow-x-auto pb-1 md:grid md:grid-cols-2 md:overflow-visible">
-                {wardrobe.layers.map((item) => (
-                  <div key={item.id} className={`min-w-[100px] md:min-w-0 rounded-2xl overflow-hidden border-2 ${item.id === hero.id ? 'border-[#2a211c]' : 'border-[#eadfce]'}`}>
-                    <img src={item.image} alt={item.name} className="w-full h-24 object-cover" />
-                    <p className="text-xs p-2 font-medium">{item.name}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="rounded-2xl h-12 border-[#d9c6b2] bg-white">
-              <Heart className="w-4 h-4 mr-2" />Save look
-            </Button>
-            <Button className="rounded-2xl h-12 bg-[#9d7a5f] hover:bg-[#8f6c53]">
-              <Share2 className="w-4 h-4 mr-2" />Share
-            </Button>
-          </div>
+        <div className="grid grid-cols-2 gap-3">
+          <Button variant="outline" className="rounded-2xl h-12 border-[#d9c6b2] bg-white"><Heart className="w-4 h-4 mr-2" />Save look</Button>
+          <Button className="rounded-2xl h-12 bg-[#9d7a5f] hover:bg-[#8f6c53]"><Share2 className="w-4 h-4 mr-2" />Share</Button>
         </div>
       </div>
     </>
   );
 }
 
-/* ── Root ── */
 export default function LeToucheStylingApp() {
   const [view, setView] = useState('inspo');
   const [selection, setSelection] = useState({
@@ -362,51 +250,35 @@ export default function LeToucheStylingApp() {
   });
 
   return (
-    <div className="min-h-screen bg-[#f6f2eb] text-[#2a211c]">
-      <div className="flex h-screen overflow-hidden">
+    /* Desktop: warm background with the phone shell centered and scaled up slightly */
+    <div className="min-h-screen bg-[#ede8e0] flex flex-col items-center justify-start py-0 md:py-10 px-0 md:px-4">
 
-        {/* Sidebar — desktop only */}
-        <SideNav view={view} setView={setView} />
+      {/* Back link — only visible on desktop above the shell */}
+      <div className="hidden md:flex w-full max-w-[420px] justify-between items-center mb-4 px-1">
+        <p className="text-xs uppercase tracking-[0.3em] text-[#9c8779] font-mono">Le Touché — Styling</p>
+        <a href="/" className="text-xs text-[#9c8779] hover:text-[#2a211c] transition-colors font-mono tracking-widest uppercase">← Site</a>
+      </div>
 
-        {/* Main content area */}
-        <div className="flex flex-col flex-1 overflow-hidden">
-          {/* Mobile-only top bar */}
-          <div className="md:hidden flex items-center justify-between px-4 pt-5 pb-2 border-b border-[#eadfce] bg-[#fbf8f3]">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#9c8779]">Le Touché</p>
-              <p className="text-base font-semibold">Styling</p>
-            </div>
+      {/* Phone shell — full screen on mobile, contained + scaled on desktop */}
+      <div className="
+        w-full h-screen text-[#2a211c] bg-[#fbf8f3] flex flex-col overflow-hidden
+        md:w-[420px] md:h-[860px] md:rounded-[40px] md:shadow-2xl md:border md:border-[#e0d5c5]
+      ">
+        <motion.div
+          key={view}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="flex-1 overflow-auto flex flex-col"
+        >
+          <div className="flex-1 overflow-auto">
+            {view === 'inspo' && <InspoView setView={setView} />}
+            {view === 'closet' && <ClosetView selection={selection} setSelection={setSelection} setView={setView} />}
+            {view === 'create' && <CreateView selection={selection} setView={setView} />}
+            {view === 'tryon' && <TryOnView selection={selection} />}
           </div>
-
-          {/* Desktop top bar */}
-          <div className="hidden md:flex items-center justify-between px-6 py-4 border-b border-[#eadfce] bg-[#fbf8f3]/80 backdrop-blur sticky top-0 z-10">
-            <p className="text-sm text-[#9c8779] uppercase tracking-widest">
-              {navItems.find(([k]) => k === view)?.[1]}
-            </p>
-            <a href="/" className="text-xs font-mono text-[#9c8779] hover:text-[#2a211c] transition-colors tracking-widest uppercase">
-              ← Back to site
-            </a>
-          </div>
-
-          {/* Scrollable content */}
-          <div className="flex-1 overflow-y-auto bg-[#f6f2eb]">
-            <motion.div
-              key={view}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto"
-            >
-              {view === 'inspo' && <InspoView setView={setView} />}
-              {view === 'closet' && <ClosetView selection={selection} setSelection={setSelection} setView={setView} />}
-              {view === 'create' && <CreateView selection={selection} setView={setView} />}
-              {view === 'tryon' && <TryOnView selection={selection} />}
-            </motion.div>
-          </div>
-
-          {/* Bottom nav — mobile only */}
           <BottomNav view={view} setView={setView} />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
