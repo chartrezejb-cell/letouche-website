@@ -136,7 +136,7 @@ function InspoView({ setView }) {
 function ClosetView({ selection, setSelection, setView }) {
   return (
     <>
-      <Header title="Closet" right={<Button size="icon" className="rounded-full bg-[#2a211c] hover:bg-[#2a211c]"><Plus className="w-4 h-4" /></Button>} />
+      <Header title="Closet" right={<button className="flex items-center gap-2 px-4 py-2 bg-[#1a1410] text-[#faf7f2] text-[10px] uppercase tracking-[0.25em] font-light hover:bg-[#c9a96e] transition-colors duration-300" style={{fontFamily:"'Cormorant SC', serif", letterSpacing:'0.25em'}}><Plus className="w-3 h-3" />Ajouter Vêtement</button>} />
       <div className="px-4 pb-24 space-y-5">
         {productGroups.map((group) => (
           <div key={group.key}>
