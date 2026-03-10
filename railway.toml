@@ -1,6 +1,7 @@
 [build]
 builder = "nixpacks"
+buildCommand = "npm ci && npm run build"
 
 [deploy]
-startCommand = "npm start"
+startCommand = "npx serve dist -l tcp://0.0.0.0:$PORT -s"
 restartPolicyType = "always"
