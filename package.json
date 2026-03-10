@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build && node copy-static.js",
     "preview": "vite preview",
-    "start": "npx serve dist -l tcp://0.0.0.0:$PORT -s"
+    "start": "npx serve dist -l tcp://0.0.0.0:$PORT"
   },
   "dependencies": {
     "framer-motion": "^11.0.0",
