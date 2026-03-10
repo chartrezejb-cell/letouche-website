@@ -27,7 +27,7 @@ const wardrobe = {
 };
 
 const inspo = [
-  { id: 'i1', title: 'Le crochet bordeaux', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=900&auto=format&fit=crop' },
+  { id: 'i1', title: 'Le Touché — Bordeaux', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=900&auto=format&fit=crop' },
   { id: 'i2', title: 'Le relax étudié', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=900&auto=format&fit=crop' },
   { id: 'i3', title: "L'olive & blanc", image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=900&auto=format&fit=crop' },
 ];
@@ -81,7 +81,7 @@ function InspoView({ setView }) {
     <>
       <Header
         title="Inspo"
-        right={<Button className="rounded-full bg-[#d8c0a8] text-[#2a211c] hover:bg-[#ccb299]"><Upload className="w-4 h-4 mr-2" />Upload outfit</Button>}
+        right={<button className="flex items-center gap-2 px-4 py-2 bg-[#1a1410] text-[#faf7f2] text-[10px] uppercase tracking-[0.25em] font-light hover:bg-[#c9a96e] transition-colors duration-300" style={{fontFamily:"'Cormorant SC', serif", letterSpacing:'0.25em'}}><Upload className="w-3 h-3" />Ajouter un look</button>}
       />
       <div className="px-4 space-y-4 pb-24">
         <Card className="rounded-[28px] overflow-hidden border-[#eadfce] bg-white/70">
